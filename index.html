@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>أخبار المستشفى</title>
+</head>
+<body>
+<h1>أخبار مستشفى الجلدية</h1>
+<div id="posts"></div>
+<script>
+fetch('posts.json')
+.then(r=>r.json())
+.then(data=>{
+  let c=document.getElementById('posts');
+  data.forEach(p=>{
+    let d=document.createElement('div');
+    d.innerHTML=`<h2>${p.title}</h2><p>${p.body}</p>`;
+    c.appendChild(d);
+  });
+});
+</script>
+</body>
+</html>
