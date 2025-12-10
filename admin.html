@@ -1,4 +1,54 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>لوحة إدارة الأخبار</title></head>
-<body>ضع API KEY داخل الكود هنا (نسخة مبسطة).</body></html>
+<body>
+<h2>إدارة الأخبار</h2>
+
+<p>رفع صورة عبر ImgBB API:</p>
+<input type="file" id="img"><br>
+<button onclick="uploadImg()">رفع الصورة</button>
+<p id="status"></p>
+
+<hr>
+
+<h3>إضافة خبر</h3>
+<input id="title" placeholder="عنوان"><br>
+<textarea id="content" placeholder="المحتوى"></textarea><br>
+<input id="imgurl" placeholder="رابط الصورة"><br>
+<button onclick="addPost()">حفظ الخبر</button>
+
+<script>
+const API_KEY="PUT_API_KEY";
+
+function uploadImg(){
+ let f=document.getElementById('img').files[0];
+ let fd=new FormData();
+ fd.append('image',f);
+ document.getElementById('status').innerText="جاري الرفع...";
+ fetch(`https://api.imgbb.com/1/upload?key=${API_KEY}`,{method:"POST",body:fd})
+ .then(r=>r.json()).then(x=>{
+   document.getElementById('imgurl').value=x.data.url;
+   document.getElementById('status').innerText="تم الرفع";
+ });
+}
+
+function addPost(){
+ fetch('news.json').then(r=>r.json()).then(list=>{
+   list.unshift({
+     title: document.getElementById('title').value,
+     content: document.getElementById('content').value,
+     image: document.getElementById('imgurl').value,
+     date: new Date().toLocaleDateString('ar-EG')
+   });
+   const blob=new Blob([JSON.stringify(list,null,2)],{type:'application/json'});
+   const a=document.createElement('a');
+   a.href=URL.createObjectURL(blob);
+   a.download='news.json';
+   a.click();
+   alert("ارفع الملف الجديد على GitHub");
+ });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>عرض الخبر</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="post"></div>
+
+<script>
+const params = new URLSearchParams(location.search);
+const id = params.get('id');
+
+fetch('news.json').then(r=>r.json()).then(list=>{
+  const div=document.getElementById('post');
+  const p=list[id];
+  if(!p){div.innerHTML='الخبر غير موجود';return;}
+  div.innerHTML = `
+    <h2>${p.title}</h2>
+    <img src='${p.image}' width='300'>
+    <p>${p.content}</p>
+    <p><b>التاريخ:</b> ${p.date}</p>
+    <a href='index.html'>الرجوع</a>
+  `;
+});
+</script>
+</body>
+</html>
