@@ -1,101 +1,21 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>أخبار مستشفى الجلدية بدمياط</title>
-  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-<header class="site-header">
-  <div class="container header-inner">
-    <img src="images/logo.png" alt="لوجو" class="logo">
-    <div class="site-title">
-      <h1>مستشفى الأمراض الجلدية بدمياط</h1>
-      <p class="tagline">أحدث الأخبار والإعلانات</p>
-    </div>
-  </div>
-</header>
-
-<main class="container">
-  <section class="hero">
-    <h2>آخر الأخبار</h2>
-    <p class="hero-sub">متابعة فورية لجميع أنشطة المستشفى</p>
-  </section>
-
-  <section id="news-grid" class="news-grid"></section>
-</main>
-
-<footer class="site-footer">
-  <div class="container">
-    <p>© جميع الحقوق محفوظة — مستشفى الأمراض الجلدية بدمياط</p>
-    <p>إعداد وتنفيذ: فني تسجيل طبي وإحصاء — أحمد الديب</p>
-  </div>
-</footer>
-
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
-<!-- Paste your firebase config in config.js -->
-<script src="config.js"></script>
-
+<h1>أخبار مستشفى الجلدية بدمياط</h1>
+<div id="news"></div>
 <script>
-  // Initialize and fetch posts from Realtime Database
-  const db = firebase.database();
-  const postsRef = db.ref('posts');
-
-  function renderPost(p) {
-    const card = document.createElement('article');
-    card.className = 'card';
-    const img = document.createElement('img');
-    img.className = 'card-image';
-    img.alt = p.title || 'صورة';
-    img.src = p.image || 'images/placeholder.png';
-    const body = document.createElement('div');
-    body.className = 'card-body';
-    const title = document.createElement('h3');
-    title.className = 'card-title';
-    title.textContent = p.title || '';
-    const date = document.createElement('time');
-    date.className = 'card-date';
-    date.textContent = p.date || '';
-    const excerpt = document.createElement('p');
-    excerpt.className = 'card-excerpt';
-    excerpt.textContent = p.content || '';
-    body.appendChild(title);
-    body.appendChild(date);
-    body.appendChild(excerpt);
-    card.appendChild(img);
-    card.appendChild(body);
-    return card;
-  }
-
-  function loadPosts() {
-    const grid = document.getElementById('news-grid');
-    grid.innerHTML = '<p class="loading">جاري تحميل الأخبار...</p>';
-    postsRef.orderByChild('date').on('value', snapshot => {
-      const data = snapshot.val();
-      grid.innerHTML = '';
-      if (!data) {
-        grid.innerHTML = '<p class="empty">لا توجد أخبار حالياً.</p>';
-        return;
-      }
-      const arr = Object.keys(data).map(k=>({id:k, ...data[k]}));
-      arr.sort((a,b)=> (a.date < b.date)?1:-1);
-      arr.forEach(p => grid.appendChild(renderPost(p)));
-    }, err => {
-      grid.innerHTML = '<p class="error">خطأ في تحميل الأخبار.</p>';
-      console.error(err);
-    });
-  }
-
-  // wait for firebase initialized in config.js
-  if (typeof firebase !== 'undefined') {
-    loadPosts();
-  } else {
-    document.getElementById('news-grid').innerHTML = '<p class="error">يرجى إضافة ملف config.js الخاص بـ Firebase.</p>';
-  }
+fetch('news.json').then(r=>r.json()).then(list=>{
+  const div=document.getElementById('news');
+  if(!list.length){div.innerHTML='لا توجد أخبار حالياً';return;}
+  list.forEach(p=>{
+    div.innerHTML += `<h3>${p.title}</h3><img src="${p.image}" width="200"><p>${p.content}</p><hr>`;
+  });
+});
 </script>
 </body>
 </html>
