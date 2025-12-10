@@ -1,85 +1,31 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>أخبار مستشفى الجلدية بدمياط</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<title>موقع الأخبار</title>
+<style>
+body { font-family: sans-serif; background:#f5f5f5; padding:20px; }
+.container { max-width:800px; margin:auto; background:#fff; padding:20px; border-radius:12px; }
+.news-item { border:1px solid #ddd; padding:10px; margin:10px 0; border-radius:8px; }
+footer { margin-top:30px; text-align:center; font-size:14px; color:#555; }
+</style>
 </head>
 <body>
-<header class="site-header">
-  <div class="container header-inner">
-    <div class="logo-wrap">
-      <!-- ضع ملف اللوجو باسم logo.png داخل مجلد assets -->
-      <img src="assets/logo.png" alt="لوجو المستشفى" class="logo">
-    </div>
-    <div class="site-title">
-      <h1>مستشفى الأمراض الجلدية بدمياط</h1>
-      <p class="tagline">أحدث الأخبار والإعلانات — صحة أفضل للجميع</p>
-    </div>
-  </div>
-</header>
+<div class="container">
+<h1>الأخبار</h1>
 
-<main class="container">
-  <section class="hero">
-    <h2>آخر الأخبار</h2>
-    <p class="hero-sub">تابع أحدث الأنشطة والإعلانات الخاصة بالمستشفى</p>
-  </section>
+<!-- ضع كل خبر هنا -->
+<div class="news-item">
+<h3>عنوان الخبر</h3>
+<p>محتوى الخبر...</p>
+<img src="images/sample.jpg" width="200">
+</div>
 
-  <section id="news-grid" class="news-grid">
-    <!-- بطاقة الأخبار ستمتلئ بواسطة JavaScript -->
-  </section>
-</main>
+<!-- لإضافة خبر جديد انسخ البلوك السابق وغير البيانات -->
 
-<footer class="site-footer">
-  <div class="container">
-    <p>© جميع الحقوق محفوظة — مستشفى الأمراض الجلدية بدمياط</p>
-    <p>للاستفسارات: اتصل بإدارة الإعلام بالمستشفى</p>
-  </div>
+<footer>
+إعداد وتنفيذ فني تسجيل طبي وإحصاء أحمد الديب
 </footer>
-
-<script>
-async function loadPosts() {
-  try {
-    const res = await fetch('posts.json', {cache: "no-store"});
-    const posts = await res.json();
-    const grid = document.getElementById('news-grid');
-    if (!posts.length) {
-      grid.innerHTML = '<p class="empty">لا توجد أخبار حالياً.</p>';
-      return;
-    }
-    posts.forEach(p => {
-      const card = document.createElement('article');
-      card.className = 'card';
-      const img = document.createElement('img');
-      img.className = 'card-image';
-      img.alt = p.title || 'صورة خبر';
-      img.src = p.image || 'assets/placeholder.png';
-      const body = document.createElement('div');
-      body.className = 'card-body';
-      const title = document.createElement('h3');
-      title.className = 'card-title';
-      title.textContent = p.title || '';
-      const date = document.createElement('time');
-      date.className = 'card-date';
-      date.textContent = p.date || '';
-      const excerpt = document.createElement('p');
-      excerpt.className = 'card-excerpt';
-      excerpt.textContent = p.content || '';
-      body.appendChild(title);
-      body.appendChild(date);
-      body.appendChild(excerpt);
-      card.appendChild(img);
-      card.appendChild(body);
-      grid.appendChild(card);
-    });
-  } catch (err) {
-    console.error(err);
-    document.getElementById('news-grid').innerHTML = '<p class="error">حدث خطأ أثناء تحميل الأخبار.</p>';
-  }
-}
-loadPosts();
-</script>
-
+</div>
 </body>
 </html>
