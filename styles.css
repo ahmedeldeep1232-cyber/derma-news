@@ -1,1 +1,31 @@
-body{font-family:tahoma;background:#f6f6f6;padding:20px} .card{background:#fff;padding:10px;margin:10px;border-radius:10px}
+/* professional blue theme */
+:root{--blue:#0a6ebd;--dark:#0a2a44;--muted:#6b7280}
+*{box-sizing:border-box}
+body{font-family:Tajawal,Arial,sans-serif;background:#f4f7fb;color:#0f1724;margin:0}
+.container{width:92%;max-width:1100px;margin:0 auto;padding:20px}
+.header-grid{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:72px;height:72px;object-fit:contain;border-radius:10px;background:#fff;padding:8px}
+.top-nav a{color:#fff;margin-left:12px;text-decoration:none;padding:8px 12px;border-radius:8px;opacity:0.95}
+.top-nav a.active{background:rgba(255,255,255,0.12)}
+.site-header{background:linear-gradient(90deg,var(--blue),#0f73c9);padding:14px 0;color:#fff}
+.hero h2{margin:14px 0 6px}
+.hero-sub{color:var(--muted);margin:0 0 18px}
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 6px 18px rgba(17,24,39,0.06);display:flex;flex-direction:column}
+.card-image{height:180px;background-size:cover;background-position:center}
+.card-body{padding:14px}
+.card h3{margin:0 0 8px;color:#0f73c9}
+.card time{display:block;color:var(--muted);font-size:13px;margin-bottom:8px}
+.site-footer{background:#0a4c8b;color:#cfe6ff;padding:18px;margin-top:30px;border-top:4px solid rgba(255,255,255,0.02)}
+.admin-page .admin-form{background:#fff;padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(17,24,39,0.04)}
+.posts-list{margin-top:20px}
+.post-item{display:flex;gap:12px;align-items:center;background:#fff;padding:10px;border-radius:8px;margin-bottom:10px;border:1px solid #eee}
+.post-item .thumb{width:84px;height:64px;object-fit:cover;border-radius:6px}
+.post-item .actions a{margin-left:8px;color:var(--blue);text-decoration:none}
+.org-chart{background:#fff;padding:20px;border-radius:12px;box-shadow:0 6px 18px rgba(17,24,39,0.04)}
+.org-root{list-style:none;padding-left:0}
+.org-root ul{list-style:none;padding-left:20px}
+.org-node{background:#f1f7ff;border:1px solid #dbeeff;padding:10px;border-radius:8px;display:inline-block}
+.back-link{display:inline-block;margin-top:18px;color:var(--blue);text-decoration:none}
+@media(max-width:800px){.header-grid{flex-direction:column;align-items:flex-start}.news-grid{grid-template-columns:1fr}}
